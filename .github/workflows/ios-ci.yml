@@ -1,0 +1,221 @@
+name: iOS CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_16_beta.app/Contents/Developer
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: macos-14
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Select Xcode Version
+      run: |
+        sudo xcode-select --switch /Applications/Xcode_16_beta.app/Contents/Developer
+        xcodebuild -version
+        
+    - name: Cache Dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/Library/Developer/Xcode/DerivedData
+          ~/.cache/CocoaPods
+        key: ${{ runner.os }}-xcode-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-xcode-
+          
+    - name: Install Dependencies
+      run: |
+        # Install any additional dependencies if needed
+        echo "Dependencies installed"
+        
+    - name: Build Project
+      run: |
+        set -o pipefail
+        xcodebuild \
+          -project RediscoverTalk.xcodeproj \
+          -scheme RediscoverTalk \
+          -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.0' \
+          -derivedDataPath ./DerivedData \
+          clean build-for-testing | xcpretty
+          
+    - name: Run Unit Tests
+      run: |
+        set -o pipefail
+        xcodebuild \
+          -project RediscoverTalk.xcodeproj \
+          -scheme RediscoverTalk \
+          -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.0' \
+          -derivedDataPath ./DerivedData \
+          -enableCodeCoverage YES \
+          -resultBundlePath ./TestResults/UnitTests.xcresult \
+          test-without-building \
+          -only-testing:RediscoverTalkUnitTests | xcpretty
+          
+    - name: Run UI Tests  
+      run: |
+        set -o pipefail
+        xcodebuild \
+          -project RediscoverTalk.xcodeproj \
+          -scheme RediscoverTalk \
+          -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.0' \
+          -derivedDataPath ./DerivedData \
+          -resultBundlePath ./TestResults/UITests.xcresult \
+          test-without-building \
+          -only-testing:RediscoverTalkUITests | xcpretty
+          
+    - name: Generate Code Coverage
+      run: |
+        xcrun xccov view --report --json ./TestResults/UnitTests.xcresult > coverage.json
+        xcrun xccov view --report ./TestResults/UnitTests.xcresult > coverage.txt
+        
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: |
+          ./TestResults/
+          coverage.json
+          coverage.txt
+          
+    - name: Upload Code Coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.json
+        fail_ci_if_error: false
+        verbose: true
+
+  validate-framework:
+    name: Validate Testing Framework
+    runs-on: macos-14
+    needs: build-and-test
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Run Framework Validation
+      run: |
+        python3 Scripts/validate_testing_framework.py "/Users/runner/work/rediscover-talk/rediscover-talk"
+        
+    - name: Upload Validation Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: framework-validation
+        path: Reports/
+
+  quality-gates:
+    name: Quality Gates
+    runs-on: macos-14
+    needs: build-and-test
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Select Xcode Version
+      run: |
+        sudo xcode-select --switch /Applications/Xcode_16_beta.app/Contents/Developer
+        
+    - name: Run SwiftLint
+      run: |
+        if which swiftlint >/dev/null; then
+          swiftlint --reporter github-actions-logging
+        else
+          echo "SwiftLint not installed, skipping..."
+        fi
+        
+    - name: Check Code Coverage Threshold
+      run: |
+        # Extract coverage percentage and check against 90% threshold
+        COVERAGE=$(xcrun xccov view --report --json ./TestResults/UnitTests.xcresult | python3 -c "import sys, json; print(json.load(sys.stdin)['lineCoverage'])")
+        echo "Code coverage: $COVERAGE"
+        
+        if (( $(echo "$COVERAGE >= 0.90" | bc -l) )); then
+          echo "✅ Code coverage meets 90% threshold"
+        else
+          echo "❌ Code coverage below 90% threshold"
+          exit 1
+        fi
+
+  security-scan:
+    name: Security Scan
+    runs-on: macos-14
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Run Security Checks
+      run: |
+        # Check for sensitive files
+        echo "Checking for sensitive files..."
+        
+        # Check for API keys in code
+        if grep -r "API_KEY\|api_key\|apiKey" --include="*.swift" --exclude-dir=".git" .; then
+          echo "❌ Potential API keys found in code"
+          exit 1
+        else
+          echo "✅ No API keys found in code"
+        fi
+        
+        # Check for hardcoded secrets
+        if grep -r "password\|secret\|token" --include="*.swift" --exclude-dir=".git" . | grep -v "// TODO\|// MARK\|func\|var\|let" | head -10; then
+          echo "⚠️ Potential secrets found - please review"
+        else
+          echo "✅ No obvious secrets found"
+        fi
+
+  release-notes:
+    name: Generate Release Notes
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [build-and-test, validate-framework, quality-gates]
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Generate Release Notes
+      run: |
+        echo "## 🚀 Latest Changes" > release-notes.md
+        echo "" >> release-notes.md
+        
+        # Get commits since last tag (or all if no tags)
+        LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+        if [ -z "$LAST_TAG" ]; then
+          COMMITS=$(git log --oneline --no-merges)
+        else
+          COMMITS=$(git log ${LAST_TAG}..HEAD --oneline --no-merges)
+        fi
+        
+        echo "$COMMITS" | while IFS= read -r commit; do
+          echo "- $commit" >> release-notes.md
+        done
+        
+        echo "" >> release-notes.md
+        echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${LAST_TAG}...main" >> release-notes.md
+        
+    - name: Upload Release Notes
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-notes
+        path: release-notes.md
