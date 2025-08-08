@@ -1,0 +1,821 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		// App files
+		A1000001 /* RediscoverTalkApp.swift */ = {isa = PBXBuildFile; fileRef = A1000002; };
+		A1000003 /* BreatheView.swift */ = {isa = PBXBuildFile; fileRef = A1000004; };
+		A1000005 /* SubscriptionManager.swift */ = {isa = PBXBuildFile; fileRef = A1000006; };
+		A1000007 /* FamilyBreathingManager.swift */ = {isa = PBXBuildFile; fileRef = A1000008; };
+		A1000009 /* BreathingSynchronizer.swift */ = {isa = PBXBuildFile; fileRef = A1000010; };
+		A1000011 /* AnimationPerformanceManager.swift */ = {isa = PBXBuildFile; fileRef = A1000012; };
+		A1000013 /* FeatureAccessManager.swift */ = {isa = PBXBuildFile; fileRef = A1000014; };
+		A1000015 /* FamilySubscriptionValidator.swift */ = {isa = PBXBuildFile; fileRef = A1000016; };
+		A1000017 /* SubscriptionStatusMonitor.swift */ = {isa = PBXBuildFile; fileRef = A1000018; };
+		A1000019 /* SubscriptionRestoration.swift */ = {isa = PBXBuildFile; fileRef = A1000020; };
+		A1000021 /* SynchronizedBreathingCircle.swift */ = {isa = PBXBuildFile; fileRef = A1000022; };
+		A1000023 /* GlassMorphismCard.swift */ = {isa = PBXBuildFile; fileRef = A1000024; };
+		A1000025 /* BreathingAnimationSystem.swift */ = {isa = PBXBuildFile; fileRef = A1000026; };
+		A1000027 /* Assets.xcassets */ = {isa = PBXBuildFile; fileRef = A1000028; };
+		
+		// Test files
+		A1001001 /* RediscoverTalkUnitTests.swift */ = {isa = PBXBuildFile; fileRef = A1001002; };
+		A1001003 /* SubscriptionTestSuite.swift */ = {isa = PBXBuildFile; fileRef = A1001004; };
+		A1001005 /* SharePlayTestSuite.swift */ = {isa = PBXBuildFile; fileRef = A1001006; };
+		A1001007 /* BreathingEngineTests.swift */ = {isa = PBXBuildFile; fileRef = A1001008; };
+		A1001009 /* AnimationPerformanceTests.swift */ = {isa = PBXBuildFile; fileRef = A1001010; };
+		A1001011 /* IntegrationTests.swift */ = {isa = PBXBuildFile; fileRef = A1001012; };
+		A1001013 /* RediscoverTalkUITests.swift */ = {isa = PBXBuildFile; fileRef = A1001014; };
+		A1001015 /* AccessibilityTests.swift */ = {isa = PBXBuildFile; fileRef = A1001016; };
+		A1001017 /* PerformanceTests.swift */ = {isa = PBXBuildFile; fileRef = A1001018; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A1001019 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1000100;
+			remoteInfo = RediscoverTalk;
+		};
+		A1001020 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1000100;
+			remoteInfo = RediscoverTalk;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		// App files
+		A1000101 /* RediscoverTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RediscoverTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000002 /* RediscoverTalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RediscoverTalkApp.swift; sourceTree = "<group>"; };
+		A1000004 /* BreatheView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreatheView.swift; sourceTree = "<group>"; };
+		A1000006 /* SubscriptionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		A1000008 /* FamilyBreathingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyBreathingManager.swift; sourceTree = "<group>"; };
+		A1000010 /* BreathingSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreathingSynchronizer.swift; sourceTree = "<group>"; };
+		A1000012 /* AnimationPerformanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationPerformanceManager.swift; sourceTree = "<group>"; };
+		A1000014 /* FeatureAccessManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureAccessManager.swift; sourceTree = "<group>"; };
+		A1000016 /* FamilySubscriptionValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilySubscriptionValidator.swift; sourceTree = "<group>"; };
+		A1000018 /* SubscriptionStatusMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionStatusMonitor.swift; sourceTree = "<group>"; };
+		A1000020 /* SubscriptionRestoration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionRestoration.swift; sourceTree = "<group>"; };
+		A1000022 /* SynchronizedBreathingCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizedBreathingCircle.swift; sourceTree = "<group>"; };
+		A1000024 /* GlassMorphismCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlassMorphismCard.swift; sourceTree = "<group>"; };
+		A1000026 /* BreathingAnimationSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreathingAnimationSystem.swift; sourceTree = "<group>"; };
+		A1000028 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1000029 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1000030 /* StoreKitConfiguration.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StoreKitConfiguration.storekit; sourceTree = "<group>"; };
+		
+		// Test bundles
+		A1001101 /* RediscoverTalkUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RediscoverTalkUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1001102 /* RediscoverTalkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RediscoverTalkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		
+		// Test files  
+		A1001002 /* RediscoverTalkUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RediscoverTalkUnitTests.swift; sourceTree = "<group>"; };
+		A1001004 /* SubscriptionTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionTestSuite.swift; sourceTree = "<group>"; };
+		A1001006 /* SharePlayTestSuite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePlayTestSuite.swift; sourceTree = "<group>"; };
+		A1001008 /* BreathingEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingEngineTests.swift; sourceTree = "<group>"; };
+		A1001010 /* AnimationPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationPerformanceTests.swift; sourceTree = "<group>"; };
+		A1001012 /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
+		A1001014 /* RediscoverTalkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RediscoverTalkUITests.swift; sourceTree = "<group>"; };
+		A1001016 /* AccessibilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityTests.swift; sourceTree = "<group>"; };
+		A1001018 /* PerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
+		A1001103 /* UnitTestInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UnitTestInfo.plist; sourceTree = "<group>"; };
+		A1001104 /* UITestInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UITestInfo.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1000098 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1001098 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1001099 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1000000 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				A1000001 /* RediscoverTalk */,
+				A1001001 /* RediscoverTalkUnitTests */,
+				A1001013 /* RediscoverTalkUITests */,
+				A1000102 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1000001 /* RediscoverTalk */ = {
+			isa = PBXGroup;
+			children = (
+				A1000002 /* RediscoverTalkApp.swift */,
+				A1000031 /* Core */,
+				A1000032 /* Views */,
+				A1000033 /* Integration */,
+				A1000034 /* Resources */,
+			);
+			path = RediscoverTalk;
+			sourceTree = "<group>";
+		};
+		A1000031 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A1000035 /* Subscriptions */,
+				A1000036 /* Synchronization */,
+				A1000037 /* Performance */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		A1000032 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A1000038 /* Breathe */,
+				A1000039 /* Components */,
+				A1000040 /* Subscriptions */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A1000033 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				A1000026 /* BreathingAnimationSystem.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		A1000034 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A1000028 /* Assets.xcassets */,
+				A1000029 /* Info.plist */,
+				A1000030 /* StoreKitConfiguration.storekit */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A1000035 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				A1000006 /* SubscriptionManager.swift */,
+				A1000014 /* FeatureAccessManager.swift */,
+				A1000016 /* FamilySubscriptionValidator.swift */,
+				A1000018 /* SubscriptionStatusMonitor.swift */,
+				A1000020 /* SubscriptionRestoration.swift */,
+			);
+			path = Subscriptions;
+			sourceTree = "<group>";
+		};
+		A1000036 /* Synchronization */ = {
+			isa = PBXGroup;
+			children = (
+				A1000008 /* FamilyBreathingManager.swift */,
+				A1000010 /* BreathingSynchronizer.swift */,
+			);
+			path = Synchronization;
+			sourceTree = "<group>";
+		};
+		A1000037 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				A1000012 /* AnimationPerformanceManager.swift */,
+			);
+			path = Performance;
+			sourceTree = "<group>";
+		};
+		A1000038 /* Breathe */ = {
+			isa = PBXGroup;
+			children = (
+				A1000004 /* BreatheView.swift */,
+			);
+			path = Breathe;
+			sourceTree = "<group>";
+		};
+		A1000039 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A1000022 /* SynchronizedBreathingCircle.swift */,
+				A1000024 /* GlassMorphismCard.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		A1000040 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Subscriptions;
+			sourceTree = "<group>";
+		};
+		A1000102 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1000101 /* RediscoverTalk.app */,
+				A1001101 /* RediscoverTalkUnitTests.xctest */,
+				A1001102 /* RediscoverTalkUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1001001 /* RediscoverTalkUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1001002 /* RediscoverTalkUnitTests.swift */,
+				A1001041 /* Subscriptions */,
+				A1001042 /* SharePlay */,
+				A1001043 /* Breathing */,
+				A1001044 /* Performance */,
+				A1001045 /* Integration */,
+				A1001103 /* UnitTestInfo.plist */,
+			);
+			path = RediscoverTalkUnitTests;
+			sourceTree = "<group>";
+		};
+		A1001041 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				A1001004 /* SubscriptionTestSuite.swift */,
+			);
+			path = Subscriptions;
+			sourceTree = "<group>";
+		};
+		A1001042 /* SharePlay */ = {
+			isa = PBXGroup;
+			children = (
+				A1001006 /* SharePlayTestSuite.swift */,
+			);
+			path = SharePlay;
+			sourceTree = "<group>";
+		};
+		A1001043 /* Breathing */ = {
+			isa = PBXGroup;
+			children = (
+				A1001008 /* BreathingEngineTests.swift */,
+			);
+			path = Breathing;
+			sourceTree = "<group>";
+		};
+		A1001044 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				A1001010 /* AnimationPerformanceTests.swift */,
+			);
+			path = Performance;
+			sourceTree = "<group>";
+		};
+		A1001045 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				A1001012 /* IntegrationTests.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		A1001013 /* RediscoverTalkUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A1001014 /* RediscoverTalkUITests.swift */,
+				A1001016 /* AccessibilityTests.swift */,
+				A1001018 /* PerformanceTests.swift */,
+				A1001104 /* UITestInfo.plist */,
+			);
+			path = RediscoverTalkUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1000100 /* RediscoverTalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1000120 /* Build configuration list for PBXNativeTarget "RediscoverTalk" */;
+			buildPhases = (
+				A1000097 /* Sources */,
+				A1000098 /* Frameworks */,
+				A1000099 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RediscoverTalk;
+			packageProductDependencies = (
+			);
+			productName = RediscoverTalk;
+			productReference = A1000101 /* RediscoverTalk.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A1001100 /* RediscoverTalkUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1001120 /* Build configuration list for PBXNativeTarget "RediscoverTalkUnitTests" */;
+			buildPhases = (
+				A1001097 /* Sources */,
+				A1001098 /* Frameworks */,
+				A1001099 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1001021 /* PBXTargetDependency */,
+			);
+			name = RediscoverTalkUnitTests;
+			productName = RediscoverTalkUnitTests;
+			productReference = A1001101 /* RediscoverTalkUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A1001200 /* RediscoverTalkUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1001220 /* Build configuration list for PBXNativeTarget "RediscoverTalkUITests" */;
+			buildPhases = (
+				A1001197 /* Sources */,
+				A1001198 /* Frameworks */,
+				A1001199 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1001022 /* PBXTargetDependency */,
+			);
+			name = RediscoverTalkUITests;
+			productName = RediscoverTalkUITests;
+			productReference = A1001102 /* RediscoverTalkUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A1000100 = {
+						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
+					};
+					A1001100 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = A1000100;
+					};
+					A1001200 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = A1000100;
+					};
+				};
+			};
+			buildConfigurationList = A1000103 /* Build configuration list for PBXProject "RediscoverTalk" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A1000000 /* Project */;
+			minimizedProjectReferenceProxies = 1;
+			productRefGroup = A1000102 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1000100 /* RediscoverTalk */,
+				A1001100 /* RediscoverTalkUnitTests */,
+				A1001200 /* RediscoverTalkUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A1000099 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000027 /* Assets.xcassets */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1001099 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1001199 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1000097 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000001 /* RediscoverTalkApp.swift */,
+				A1000003 /* BreatheView.swift */,
+				A1000005 /* SubscriptionManager.swift */,
+				A1000007 /* FamilyBreathingManager.swift */,
+				A1000009 /* BreathingSynchronizer.swift */,
+				A1000011 /* AnimationPerformanceManager.swift */,
+				A1000013 /* FeatureAccessManager.swift */,
+				A1000015 /* FamilySubscriptionValidator.swift */,
+				A1000017 /* SubscriptionStatusMonitor.swift */,
+				A1000019 /* SubscriptionRestoration.swift */,
+				A1000021 /* SynchronizedBreathingCircle.swift */,
+				A1000023 /* GlassMorphismCard.swift */,
+				A1000025 /* BreathingAnimationSystem.swift */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1001097 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1001001 /* RediscoverTalkUnitTests.swift */,
+				A1001003 /* SubscriptionTestSuite.swift */,
+				A1001005 /* SharePlayTestSuite.swift */,
+				A1001007 /* BreathingEngineTests.swift */,
+				A1001009 /* AnimationPerformanceTests.swift */,
+				A1001011 /* IntegrationTests.swift */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1001197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1001013 /* RediscoverTalkUITests.swift */,
+				A1001015 /* AccessibilityTests.swift */,
+				A1001017 /* PerformanceTests.swift */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1001021 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1000100 /* RediscoverTalk */;
+			targetProxy = A1001019 /* PBXContainerItemProxy */;
+		};
+		A1001022 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1000100 /* RediscoverTalk */;
+			targetProxy = A1001020 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A1000104 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A1000105 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A1000121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Rediscover Talk";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rediscovertalk.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A1000122 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Rediscover Talk";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rediscovertalk.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A1001121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RediscoverTalkUnitTests/UnitTestInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rediscovertalk.app.unittests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RediscoverTalk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RediscoverTalk";
+			};
+			name = Debug;
+		};
+		A1001122 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RediscoverTalkUnitTests/UnitTestInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rediscovertalk.app.unittests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RediscoverTalk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RediscoverTalk";
+			};
+			name = Release;
+		};
+		A1001221 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RediscoverTalkUITests/UITestInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rediscovertalk.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RediscoverTalk;
+			};
+			name = Debug;
+		};
+		A1001222 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RediscoverTalkUITests/UITestInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rediscovertalk.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = RediscoverTalk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1000103 /* Build configuration list for PBXProject "RediscoverTalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000104 /* Debug */,
+				A1000105 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1000120 /* Build configuration list for PBXNativeTarget "RediscoverTalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000121 /* Debug */,
+				A1000122 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1001120 /* Build configuration list for PBXNativeTarget "RediscoverTalkUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1001121 /* Debug */,
+				A1001122 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1001220 /* Build configuration list for PBXNativeTarget "RediscoverTalkUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1001221 /* Debug */,
+				A1001222 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A1000000 /* Project object */;
+}
