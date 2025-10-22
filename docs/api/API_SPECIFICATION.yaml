@@ -1,0 +1,1217 @@
+openapi: 3.0.3
+info:
+  title: Rediscover Talk API
+  description: Backend API for Rediscover Talk mental wellness application
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: api@rediscovertalk.com
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://api.rediscovertalk.com/v1
+    description: Production server
+  - url: https://staging-api.rediscovertalk.com/v1
+    description: Staging server
+  - url: http://localhost:3000/v1
+    description: Development server
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: Authentication
+    description: User authentication and session management
+  - name: User Profile
+    description: User profile management
+  - name: Conversation Prompts
+    description: Daily conversation prompts
+  - name: Family Exercises
+    description: Family bonding exercises
+  - name: Wellness Logs
+    description: Mood tracking and wellness logging
+  - name: Journal
+    description: Therapeutic journaling (encrypted)
+  - name: Breathing Tools
+    description: Breathing and grounding exercises
+  - name: Crisis Plan
+    description: Safety plans and emergency resources
+  - name: Analytics
+    description: Wellness insights and trends
+  - name: AI Guide
+    description: Optional AI conversation support
+
+paths:
+  # ============================================================================
+  # AUTHENTICATION
+  # ============================================================================
+  /auth/register:
+    post:
+      tags: [Authentication]
+      summary: Register new user account
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, firstName, lastName]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  example: SecurePass123!
+                firstName:
+                  type: string
+                  example: John
+                lastName:
+                  type: string
+                  example: Doe
+                agreedToTerms:
+                  type: boolean
+                  example: true
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Email already exists
+
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: Login with email and password
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/refresh:
+    post:
+      tags: [Authentication]
+      summary: Refresh access token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refreshToken]
+              properties:
+                refreshToken:
+                  type: string
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/logout:
+    post:
+      tags: [Authentication]
+      summary: Logout user and invalidate tokens
+      responses:
+        '204':
+          description: Logout successful
+
+  # ============================================================================
+  # USER PROFILE
+  # ============================================================================
+  /users/me:
+    get:
+      tags: [User Profile]
+      summary: Get current user profile
+      responses:
+        '200':
+          description: User profile retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+    patch:
+      tags: [User Profile]
+      summary: Update user profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                phone:
+                  type: string
+                timezone:
+                  type: string
+                language:
+                  type: string
+                  enum: [en, es, fr, de]
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+    delete:
+      tags: [User Profile]
+      summary: Delete user account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [password]
+              properties:
+                password:
+                  type: string
+      responses:
+        '204':
+          description: Account deleted
+
+  # ============================================================================
+  # CONVERSATION PROMPTS
+  # ============================================================================
+  /conversation/prompts/daily:
+    get:
+      tags: [Conversation Prompts]
+      summary: Get today's conversation prompt
+      responses:
+        '200':
+          description: Daily prompt retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationPrompt'
+
+  /conversation/prompts:
+    get:
+      tags: [Conversation Prompts]
+      summary: Get conversation prompts with pagination
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [family, relationship, self-reflection, parenting]
+      responses:
+        '200':
+          description: Prompts retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptList'
+
+  /conversation/responses:
+    post:
+      tags: [Conversation Prompts]
+      summary: Submit response to conversation prompt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [promptId, response]
+              properties:
+                promptId:
+                  type: string
+                  format: uuid
+                response:
+                  type: string
+                  maxLength: 5000
+                participants:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: Response saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationResponse'
+
+  # ============================================================================
+  # FAMILY EXERCISES
+  # ============================================================================
+  /family/exercises:
+    get:
+      tags: [Family Exercises]
+      summary: List family exercises
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [communication, trust, fun, conflict-resolution]
+        - name: duration
+          in: query
+          schema:
+            type: string
+            enum: [short, medium, long]
+      responses:
+        '200':
+          description: Exercises retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exercises:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FamilyExercise'
+
+  /family/exercises/{id}:
+    get:
+      tags: [Family Exercises]
+      summary: Get exercise details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Exercise details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FamilyExercise'
+
+  /family/completions:
+    post:
+      tags: [Family Exercises]
+      summary: Mark exercise as completed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [exerciseId]
+              properties:
+                exerciseId:
+                  type: string
+                  format: uuid
+                notes:
+                  type: string
+                  maxLength: 1000
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                participants:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: Completion recorded
+
+  # ============================================================================
+  # WELLNESS LOGS
+  # ============================================================================
+  /wellness/moods:
+    get:
+      tags: [Wellness Logs]
+      summary: Get mood entries with pagination
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 30
+            maximum: 100
+      responses:
+        '200':
+          description: Mood entries retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodEntryList'
+    post:
+      tags: [Wellness Logs]
+      summary: Create mood entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [mood, timestamp]
+              properties:
+                mood:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                  description: "Mood level: 1=Very Poor, 5=Excellent"
+                notes:
+                  type: string
+                  maxLength: 500
+                activities:
+                  type: array
+                  items:
+                    type: string
+                timestamp:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Mood entry created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodEntry'
+
+  /wellness/moods/{id}:
+    get:
+      tags: [Wellness Logs]
+      summary: Get mood entry by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Mood entry retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodEntry'
+    patch:
+      tags: [Wellness Logs]
+      summary: Update mood entry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mood:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                notes:
+                  type: string
+                activities:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Mood entry updated
+    delete:
+      tags: [Wellness Logs]
+      summary: Delete mood entry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Mood entry deleted
+
+  # ============================================================================
+  # JOURNAL (Encrypted client-side, metadata only on server)
+  # ============================================================================
+  /journal/sync:
+    post:
+      tags: [Journal]
+      summary: Sync encrypted journal metadata
+      description: "Client sends encrypted journal entries. Server stores encrypted blobs without decryption capability."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [entries]
+              properties:
+                entries:
+                  type: array
+                  items:
+                    type: object
+                    required: [id, encryptedContent, createdAt, updatedAt]
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      encryptedContent:
+                        type: string
+                        format: byte
+                        description: "AES-256 encrypted journal entry (client-side encryption)"
+                      encryptionVersion:
+                        type: string
+                        example: "aes-256-gcm"
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      deleted:
+                        type: boolean
+      responses:
+        '200':
+          description: Sync successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  synced:
+                    type: integer
+                  conflicts:
+                    type: array
+                    items:
+                      type: object
+
+  /journal/metadata:
+    get:
+      tags: [Journal]
+      summary: Get journal entry metadata (timestamps only)
+      responses:
+        '200':
+          description: Metadata retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entries:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+
+  # ============================================================================
+  # BREATHING TOOLS
+  # ============================================================================
+  /breathing/exercises:
+    get:
+      tags: [Breathing Tools]
+      summary: Get breathing exercises
+      responses:
+        '200':
+          description: Exercises retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exercises:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BreathingExercise'
+
+  /breathing/sessions:
+    post:
+      tags: [Breathing Tools]
+      summary: Log breathing session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [exerciseId, duration]
+              properties:
+                exerciseId:
+                  type: string
+                  format: uuid
+                duration:
+                  type: integer
+                  description: "Duration in seconds"
+                completed:
+                  type: boolean
+      responses:
+        '201':
+          description: Session logged
+
+  # ============================================================================
+  # CRISIS PLAN (Encrypted client-side)
+  # ============================================================================
+  /crisis/plan:
+    get:
+      tags: [Crisis Plan]
+      summary: Get encrypted crisis plan
+      responses:
+        '200':
+          description: Crisis plan retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  encryptedPlan:
+                    type: string
+                    format: byte
+                  updatedAt:
+                    type: string
+                    format: date-time
+    put:
+      tags: [Crisis Plan]
+      summary: Update encrypted crisis plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [encryptedPlan]
+              properties:
+                encryptedPlan:
+                  type: string
+                  format: byte
+      responses:
+        '200':
+          description: Crisis plan updated
+
+  /crisis/resources:
+    get:
+      tags: [Crisis Plan]
+      summary: Get emergency resources by location
+      parameters:
+        - name: countryCode
+          in: query
+          schema:
+            type: string
+            example: US
+        - name: stateCode
+          in: query
+          schema:
+            type: string
+            example: CA
+      responses:
+        '200':
+          description: Resources retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotlines:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EmergencyResource'
+                  crisisCenters:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EmergencyResource'
+
+  # ============================================================================
+  # ANALYTICS
+  # ============================================================================
+  /analytics/insights:
+    get:
+      tags: [Analytics]
+      summary: Get personalized wellness insights
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [week, month, quarter, year]
+            default: month
+      responses:
+        '200':
+          description: Insights retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsInsights'
+
+  /analytics/trends:
+    get:
+      tags: [Analytics]
+      summary: Get mood trends
+      parameters:
+        - name: startDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Trends retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodTrends'
+
+  # ============================================================================
+  # AI GUIDE (Optional Feature)
+  # ============================================================================
+  /ai/conversations:
+    post:
+      tags: [AI Guide]
+      summary: Start new AI conversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+                  maxLength: 2000
+      responses:
+        '201':
+          description: Conversation started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIConversation'
+
+  /ai/conversations/{id}/messages:
+    post:
+      tags: [AI Guide]
+      summary: Send message to AI
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+                  maxLength: 2000
+      responses:
+        '200':
+          description: AI response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIMessage'
+
+# ==============================================================================
+# COMPONENTS
+# ==============================================================================
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # Authentication Schemas
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserProfile'
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+          description: "Token expiration in seconds"
+
+    TokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+
+    # User Profile Schema
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        timezone:
+          type: string
+          example: "America/Los_Angeles"
+        language:
+          type: string
+          enum: [en, es, fr, de]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Conversation Prompt Schemas
+    ConversationPrompt:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        question:
+          type: string
+        category:
+          type: string
+          enum: [family, relationship, self-reflection, parenting]
+        difficulty:
+          type: string
+          enum: [easy, medium, deep]
+        suggestedParticipants:
+          type: array
+          items:
+            type: string
+        date:
+          type: string
+          format: date
+
+    PromptList:
+      type: object
+      properties:
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationPrompt'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    ConversationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        promptId:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        response:
+          type: string
+        participants:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    # Family Exercise Schemas
+    FamilyExercise:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        instructions:
+          type: string
+        category:
+          type: string
+          enum: [communication, trust, fun, conflict-resolution]
+        duration:
+          type: string
+          enum: [short, medium, long]
+        durationMinutes:
+          type: integer
+        minimumParticipants:
+          type: integer
+        materialsNeeded:
+          type: array
+          items:
+            type: string
+
+    # Wellness Schemas
+    MoodEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        mood:
+          type: integer
+          minimum: 1
+          maximum: 5
+        notes:
+          type: string
+        activities:
+          type: array
+          items:
+            type: string
+        timestamp:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    MoodEntryList:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/MoodEntry'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        summary:
+          type: object
+          properties:
+            averageMood:
+              type: number
+            totalEntries:
+              type: integer
+            periodStart:
+              type: string
+              format: date
+            periodEnd:
+              type: string
+              format: date
+
+    # Breathing Exercise Schema
+    BreathingExercise:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        technique:
+          type: string
+          enum: [box-breathing, 4-7-8, alternate-nostril, mindful]
+        duration:
+          type: integer
+          description: "Default duration in seconds"
+        breathPattern:
+          type: object
+          properties:
+            inhale:
+              type: integer
+            hold:
+              type: integer
+            exhale:
+              type: integer
+            pause:
+              type: integer
+
+    # Emergency Resource Schema
+    EmergencyResource:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+          enum: [hotline, crisis-center, hospital, counseling]
+        phone:
+          type: string
+        description:
+          type: string
+        availableHours:
+          type: string
+        location:
+          type: object
+          properties:
+            address:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            country:
+              type: string
+
+    # Analytics Schemas
+    AnalyticsInsights:
+      type: object
+      properties:
+        period:
+          type: string
+        moodAverage:
+          type: number
+        moodTrend:
+          type: string
+          enum: [improving, stable, declining]
+        mostCommonActivities:
+          type: array
+          items:
+            type: object
+            properties:
+              activity:
+                type: string
+              count:
+                type: integer
+        recommendations:
+          type: array
+          items:
+            type: string
+        streaks:
+          type: object
+          properties:
+            currentStreak:
+              type: integer
+            longestStreak:
+              type: integer
+
+    MoodTrends:
+      type: object
+      properties:
+        dataPoints:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              averageMood:
+                type: number
+              entryCount:
+                type: integer
+        correlations:
+          type: array
+          items:
+            type: object
+            properties:
+              activity:
+                type: string
+              correlation:
+                type: number
+                minimum: -1
+                maximum: 1
+
+    # AI Conversation Schemas
+    AIConversation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIMessage'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    AIMessage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        conversationId:
+          type: string
+          format: uuid
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    # Shared Schemas
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimitExceeded:
+      description: Too many requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      headers:
+        X-Rate-Limit-Limit:
+          schema:
+            type: integer
+        X-Rate-Limit-Remaining:
+          schema:
+            type: integer
+        X-Rate-Limit-Reset:
+          schema:
+            type: integer
